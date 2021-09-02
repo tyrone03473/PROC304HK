@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 900px;
+            background-color: #222222;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": "192.168.231.128", "label": "192.168.231.128", "shape": "dot", "title": "192.168.231.128 Neighbors:\u003cbr\u003e13.107.213.49\u003cbr\u003e36.156.94.35\u003cbr\u003e192.168.231.255\u003cbr\u003e112.25.86.49\u003cbr\u003e13.107.246.49\u003cbr\u003e112.25.86.32\u003cbr\u003e223.119.230.22\u003cbr\u003e20.190.163.20\u003cbr\u003e222.34.55.6\u003cbr\u003e117.18.232.200\u003cbr\u003e152.199.40.6\u003cbr\u003e183.192.202.191\u003cbr\u003e40.64.103.161\u003cbr\u003e36.156.36.33\u003cbr\u003e223.119.50.139\u003cbr\u003e172.217.160.106\u003cbr\u003e223.119.232.83\u003cbr\u003e223.119.204.248\u003cbr\u003e112.25.86.33\u003cbr\u003e106.75.125.56\u003cbr\u003e121.51.36.118\u003cbr\u003e36.152.44.96\u003cbr\u003e223.111.108.150\u003cbr\u003e36.156.36.38\u003cbr\u003e223.119.50.137\u003cbr\u003e36.156.36.35\u003cbr\u003e40.126.35.80\u003cbr\u003e203.208.40.65\u003cbr\u003e36.156.94.33\u003cbr\u003e220.181.38.251\u003cbr\u003e172.67.159.169\u003cbr\u003e118.215.186.10\u003cbr\u003e192.168.231.2\u003cbr\u003e239.255.255.250\u003cbr\u003e36.152.44.95", "value": 35}, {"font": {"color": "white"}, "id": "192.168.231.2", "label": "192.168.231.2", "shape": "dot", "title": "192.168.231.2 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "118.215.186.10", "label": "118.215.186.10", "shape": "dot", "title": "118.215.186.10 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "106.75.125.56", "label": "106.75.125.56", "shape": "dot", "title": "106.75.125.56 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "223.111.108.150", "label": "223.111.108.150", "shape": "dot", "title": "223.111.108.150 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "36.152.44.96", "label": "36.152.44.96", "shape": "dot", "title": "36.152.44.96 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "223.119.232.83", "label": "223.119.232.83", "shape": "dot", "title": "223.119.232.83 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "36.156.94.33", "label": "36.156.94.33", "shape": "dot", "title": "36.156.94.33 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "36.156.36.33", "label": "36.156.36.33", "shape": "dot", "title": "36.156.36.33 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "112.25.86.33", "label": "112.25.86.33", "shape": "dot", "title": "112.25.86.33 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "222.34.55.6", "label": "222.34.55.6", "shape": "dot", "title": "222.34.55.6 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "239.255.255.250", "label": "239.255.255.250", "shape": "dot", "title": "239.255.255.250 Neighbors:\u003cbr\u003e192.168.231.128\u003cbr\u003e192.168.231.1", "value": 2}, {"font": {"color": "white"}, "id": "36.156.36.38", "label": "36.156.36.38", "shape": "dot", "title": "36.156.36.38 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "112.25.86.49", "label": "112.25.86.49", "shape": "dot", "title": "112.25.86.49 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "36.156.36.35", "label": "36.156.36.35", "shape": "dot", "title": "36.156.36.35 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "36.156.94.35", "label": "36.156.94.35", "shape": "dot", "title": "36.156.94.35 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "172.217.160.106", "label": "172.217.160.106", "shape": "dot", "title": "172.217.160.106 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "112.25.86.32", "label": "112.25.86.32", "shape": "dot", "title": "112.25.86.32 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "121.51.36.118", "label": "121.51.36.118", "shape": "dot", "title": "121.51.36.118 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "183.192.202.191", "label": "183.192.202.191", "shape": "dot", "title": "183.192.202.191 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "36.152.44.95", "label": "36.152.44.95", "shape": "dot", "title": "36.152.44.95 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "192.168.231.1", "label": "192.168.231.1", "shape": "dot", "title": "192.168.231.1 Neighbors:\u003cbr\u003e239.255.255.250", "value": 1}, {"font": {"color": "white"}, "id": "192.168.231.255", "label": "192.168.231.255", "shape": "dot", "title": "192.168.231.255 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "13.107.213.49", "label": "13.107.213.49", "shape": "dot", "title": "13.107.213.49 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "13.107.246.49", "label": "13.107.246.49", "shape": "dot", "title": "13.107.246.49 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "20.190.163.20", "label": "20.190.163.20", "shape": "dot", "title": "20.190.163.20 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "40.126.35.80", "label": "40.126.35.80", "shape": "dot", "title": "40.126.35.80 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "223.119.204.248", "label": "223.119.204.248", "shape": "dot", "title": "223.119.204.248 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "40.64.103.161", "label": "40.64.103.161", "shape": "dot", "title": "40.64.103.161 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "220.181.38.251", "label": "220.181.38.251", "shape": "dot", "title": "220.181.38.251 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "203.208.40.65", "label": "203.208.40.65", "shape": "dot", "title": "203.208.40.65 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "223.119.50.137", "label": "223.119.50.137", "shape": "dot", "title": "223.119.50.137 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "172.67.159.169", "label": "172.67.159.169", "shape": "dot", "title": "172.67.159.169 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "223.119.50.139", "label": "223.119.50.139", "shape": "dot", "title": "223.119.50.139 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "117.18.232.200", "label": "117.18.232.200", "shape": "dot", "title": "117.18.232.200 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "223.119.230.22", "label": "223.119.230.22", "shape": "dot", "title": "223.119.230.22 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "152.199.40.6", "label": "152.199.40.6", "shape": "dot", "title": "152.199.40.6 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}]);
+        edges = new vis.DataSet([{"from": "192.168.231.128", "to": "192.168.231.2", "value": 37}, {"from": "192.168.231.128", "to": "118.215.186.10", "value": 1}, {"from": "192.168.231.128", "to": "106.75.125.56", "value": 2}, {"from": "192.168.231.128", "to": "223.111.108.150", "value": 2}, {"from": "192.168.231.128", "to": "36.152.44.96", "value": 298}, {"from": "192.168.231.128", "to": "223.119.232.83", "value": 4}, {"from": "192.168.231.128", "to": "36.156.94.33", "value": 38}, {"from": "192.168.231.128", "to": "36.156.36.33", "value": 55}, {"from": "192.168.231.128", "to": "112.25.86.33", "value": 77}, {"from": "192.168.231.128", "to": "222.34.55.6", "value": 1}, {"from": "192.168.231.128", "to": "239.255.255.250", "value": 4}, {"from": "192.168.231.128", "to": "36.156.36.38", "value": 41}, {"from": "192.168.231.128", "to": "112.25.86.49", "value": 37}, {"from": "192.168.231.128", "to": "36.156.36.35", "value": 50}, {"from": "192.168.231.128", "to": "36.156.94.35", "value": 27}, {"from": "192.168.231.128", "to": "172.217.160.106", "value": 12}, {"from": "192.168.231.128", "to": "112.25.86.32", "value": 25}, {"from": "121.51.36.118", "to": "192.168.231.128", "value": 4}, {"from": "183.192.202.191", "to": "192.168.231.128", "value": 4}, {"from": "36.152.44.95", "to": "192.168.231.128", "value": 2}, {"from": "192.168.231.1", "to": "239.255.255.250", "value": 4}, {"from": "192.168.231.128", "to": "192.168.231.255", "value": 1}, {"from": "13.107.213.49", "to": "192.168.231.128", "value": 1}, {"from": "13.107.246.49", "to": "192.168.231.128", "value": 5}, {"from": "192.168.231.128", "to": "20.190.163.20", "value": 1}, {"from": "192.168.231.128", "to": "40.126.35.80", "value": 1}, {"from": "192.168.231.128", "to": "223.119.204.248", "value": 11}, {"from": "40.64.103.161", "to": "192.168.231.128", "value": 1}, {"from": "192.168.231.128", "to": "220.181.38.251", "value": 8}, {"from": "192.168.231.128", "to": "203.208.40.65", "value": 2}, {"from": "192.168.231.128", "to": "223.119.50.137", "value": 2}, {"from": "192.168.231.128", "to": "172.67.159.169", "value": 1}, {"from": "192.168.231.128", "to": "223.119.50.139", "value": 2}, {"from": "192.168.231.128", "to": "117.18.232.200", "value": 2}, {"from": "192.168.231.128", "to": "223.119.230.22", "value": 2}, {"from": "192.168.231.128", "to": "152.199.40.6", "value": 2}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
