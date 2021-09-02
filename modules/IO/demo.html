@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 900px;
+            background-color: #222222;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": "192.168.231.128", "label": "192.168.231.128", "shape": "dot", "title": "192.168.231.128 Neighbors:\u003cbr\u003e223.119.232.83\u003cbr\u003e172.67.75.39\u003cbr\u003e40.126.35.86\u003cbr\u003e192.168.231.2\u003cbr\u003e192.168.231.1\u003cbr\u003e117.18.237.29", "value": 6}, {"font": {"color": "white"}, "id": "223.119.232.83", "label": "223.119.232.83", "shape": "dot", "title": "223.119.232.83 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "192.168.231.2", "label": "192.168.231.2", "shape": "dot", "title": "192.168.231.2 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "192.168.231.1", "label": "192.168.231.1", "shape": "dot", "title": "192.168.231.1 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "40.126.35.86", "label": "40.126.35.86", "shape": "dot", "title": "40.126.35.86 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "172.67.75.39", "label": "172.67.75.39", "shape": "dot", "title": "172.67.75.39 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}, {"font": {"color": "white"}, "id": "117.18.237.29", "label": "117.18.237.29", "shape": "dot", "title": "117.18.237.29 Neighbors:\u003cbr\u003e192.168.231.128", "value": 1}]);
+        edges = new vis.DataSet([{"from": "192.168.231.128", "to": "223.119.232.83", "value": 25}, {"from": "192.168.231.128", "to": "192.168.231.2", "value": 3}, {"from": "192.168.231.128", "to": "192.168.231.1", "value": 2570}, {"from": "40.126.35.86", "to": "192.168.231.128", "value": 1}, {"from": "192.168.231.128", "to": "172.67.75.39", "value": 4}, {"from": "117.18.237.29", "to": "192.168.231.128", "value": 4}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
